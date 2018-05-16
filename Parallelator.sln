@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.Client", "Para
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.Common", "Parallelator.Common\Parallelator.Common.csproj", "{5137F562-4113-401B-BB19-AF7F573886A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parallelator.Client.Tests", "Parallelator.Client.Tests\Parallelator.Client.Tests.csproj", "{F7218FAA-DE17-4BB4-A2A8-24F70998DFE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.Client.Tests", "Parallelator.Client.Tests\Parallelator.Client.Tests.csproj", "{F7218FAA-DE17-4BB4-A2A8-24F70998DFE0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{63421F95-9D80-44AC-AD05-DBBEBAD481F2}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

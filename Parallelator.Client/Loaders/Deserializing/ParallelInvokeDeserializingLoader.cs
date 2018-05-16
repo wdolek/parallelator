@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using Parallelator.Client.Extensions;
 using Parallelator.Common;
 
-namespace Parallelator.Client.Downloaders.Deserializing
+namespace Parallelator.Client.Loaders.Deserializing
 {
     // http://blog.danskingdom.com/tag/c-task-thread-throttle-limit-maximum-simultaneous-concurrent-parallel/
     public class ParallelInvokeDeserializingLoader : IThingyLoader<DummyData>

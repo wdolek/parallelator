@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Parallelator.Client.Downloaders
+namespace Parallelator.Client.Loaders
 {
     public interface IThingyLoader<TThingy>
     {

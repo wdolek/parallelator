@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 
-namespace Parallelator.Client.Downloaders.Raw
+namespace Parallelator.Client.Loaders.Raw
 {
     // https://stackoverflow.com/questions/22492383/throttling-asynchronous-tasks/22492731#22492731
     public class DataFlowRawLoader : IThingyLoader<string>

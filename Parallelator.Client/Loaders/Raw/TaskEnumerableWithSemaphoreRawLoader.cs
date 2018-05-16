@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Parallelator.Client.Downloaders.Raw
+namespace Parallelator.Client.Loaders.Raw
 {
     // https://stackoverflow.com/questions/22492383/throttling-asynchronous-tasks/22493662#22493662
     public class TaskEnumerableWithSemaphoreRawLoader : IThingyLoader<string>

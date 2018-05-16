@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Parallelator.Client.Extensions;
 using Parallelator.Common;
 
-namespace Parallelator.Client.Downloaders.Deserializing
+namespace Parallelator.Client.Loaders.Deserializing
 {
     public class SequentialDeserializingLoader : IThingyLoader<DummyData>
     {

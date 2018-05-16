@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Parallelator.Client.Extensions;
+using Parallelator.Common;
 
-namespace Parallelator.Client.Downloaders.Raw
+namespace Parallelator.Client.Loaders.Deserializing
 {
-    public class TaskContinuousBatchRawLoader : IThingyLoader<string>
+    public class TaskContinuousBatchDeserializingLoader : IThingyLoader<DummyData>
     {
+        private static readonly JsonSerializer Serializer = new JsonSerializer();
+
         private readonly int _batchSize;
 
-        public TaskContinuousBatchRawLoader(int batchSize)
+        public TaskContinuousBatchDeserializingLoader(int batchSize)
         {
             if (batchSize < 1)
             {
@@ -19,10 +24,10 @@ namespace Parallelator.Client.Downloaders.Raw
             _batchSize = batchSize;
         }
 
-        public async Task<IEnumerable<string>> LoadAsync(IEnumerable<Uri> uris)
+        public async Task<IEnumerable<DummyData>> LoadAsync(IEnumerable<Uri> uris)
         {
-            var result = new LinkedList<string>();
-            var queue = new List<Task<string>>(_batchSize);
+            var result = new LinkedList<DummyData>();
+            var queue = new List<Task<DummyData>>(_batchSize);
 
             using (var client = new HttpClient())
             using (IEnumerator<Uri> enumerator = uris.GetEnumerator())
@@ -30,14 +35,12 @@ namespace Parallelator.Client.Downloaders.Raw
                 while (true)
                 {
                     bool hasNext = enumerator.MoveNext();
-
-                    // we have reached end, process rest of queue if not empty and break
                     if (!hasNext)
                     {
                         if (queue.Count > 0)
                         {
-                            string[] finishedTaskResults = await Task.WhenAll(queue);
-                            foreach (string taskResult in finishedTaskResults)
+                            DummyData[] finishedTaskResults = await Task.WhenAll(queue);
+                            foreach (DummyData taskResult in finishedTaskResults)
                             {
                                 result.AddLast(taskResult);
                             }
@@ -46,14 +49,12 @@ namespace Parallelator.Client.Downloaders.Raw
                         break;
                     }
 
-                    // enqueue new loading task
                     Uri uri = enumerator.Current;
-                    queue.Add(client.GetStringAsync(uri));
+                    queue.Add(client.GetPayloadAsync<DummyData>(uri, Serializer));
 
-                    // we have reached point when queue is full, await one task and continue
                     if (queue.Count == _batchSize)
                     {
-                        Task<string> finishedTask = await Task.WhenAny(queue);
+                        Task<DummyData> finishedTask = await Task.WhenAny(queue);
                         queue.Remove(finishedTask);
                         result.AddLast(finishedTask.Result);
                     }

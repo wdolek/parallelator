@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Parallelator.Client.Downloaders.Raw
+namespace Parallelator.Client.Loaders.Raw
 {
     public class SequentialRawLoader : IThingyLoader<string>
     {

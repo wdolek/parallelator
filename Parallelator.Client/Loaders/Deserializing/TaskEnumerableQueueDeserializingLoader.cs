@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Parallelator.Common;
 
-namespace Parallelator.Client.Downloaders.Deserializing
+namespace Parallelator.Client.Loaders.Deserializing
 {
     // https://stackoverflow.com/questions/22492383/throttling-asynchronous-tasks/22493662#22493662
     // (slightly modified version processing deserialization)

@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Parallelator.Client.Extensions;
+using Parallelator.Common;
 
-namespace Parallelator.Client.Downloaders.Raw
+namespace Parallelator.Client.Loaders.Deserializing
 {
-    public class TaskSeqBatchRawLoader : IThingyLoader<string>
+    public class TaskSeqBatchDeserializingLoader : IThingyLoader<DummyData>
     {
+        private static readonly JsonSerializer Serializer = new JsonSerializer();
+
         private readonly int _batchSize;
 
-        public TaskSeqBatchRawLoader(int batchSize)
+        public TaskSeqBatchDeserializingLoader(int batchSize)
         {
             if (batchSize < 1)
             {
@@ -20,21 +25,20 @@ namespace Parallelator.Client.Downloaders.Raw
             _batchSize = batchSize;
         }
 
-        public async Task<IEnumerable<string>> LoadAsync(IEnumerable<Uri> uris)
+        public async Task<IEnumerable<DummyData>> LoadAsync(IEnumerable<Uri> uris)
         {
-            // prevent possible repetitive enumeration && make access easier
             Uri[] input = uris as Uri[] ?? uris.ToArray();
 
-            var result = new List<string>();
+            var result = new List<DummyData>();
             using (var client = new HttpClient())
             {
                 for (var i = 0; i < input.Length; i = i + _batchSize)
                 {
-                    IEnumerable<Task<string>> tasks =
+                    IEnumerable<Task<DummyData>> tasks =
                         // ReSharper disable once AccessToDisposedClosure
                         input.Skip(i)
                             .Take(_batchSize)
-                            .Select(async u => await client.GetStringAsync(u));
+                            .Select(async u => await client.GetPayloadAsync<DummyData>(u, Serializer));
 
                     result.AddRange(await Task.WhenAll(tasks));
                 }

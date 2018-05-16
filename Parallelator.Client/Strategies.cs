@@ -8,8 +8,8 @@ using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Engines;
 using BenchmarkDotNet.Mathematics;
 using BenchmarkDotNet.Order;
-using Parallelator.Client.Downloaders.Deserializing;
-using Parallelator.Client.Downloaders.Raw;
+using Parallelator.Client.Loaders.Deserializing;
+using Parallelator.Client.Loaders.Raw;
 using Parallelator.Common;
 
 namespace Parallelator.Client

@@ -1,5 +1,5 @@
-﻿using Parallelator.Client.Downloaders;
-using Parallelator.Client.Downloaders.Deserializing;
+﻿using Parallelator.Client.Loaders;
+using Parallelator.Client.Loaders.Deserializing;
 using Parallelator.Common;
 
 namespace Parallelator.Client.Tests.Downloaders.Deserializing

@@ -1,5 +1,5 @@
-﻿using Parallelator.Client.Downloaders;
-using Parallelator.Client.Downloaders.Raw;
+﻿using Parallelator.Client.Loaders;
+using Parallelator.Client.Loaders.Raw;
 using Parallelator.Common;
 
 namespace Parallelator.Client.Tests.Downloaders.Raw
