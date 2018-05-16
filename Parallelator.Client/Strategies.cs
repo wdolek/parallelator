@@ -36,11 +36,19 @@ namespace Parallelator.Client
             _uris = ApiUriBuilder.GenerateUris(Delay, Total);
         }
 
-        [BenchmarkCategory("Raw")]
-        [Benchmark(Baseline = true)]
+        //[BenchmarkCategory("Sequential")]
+        //[Benchmark]
         public async Task<IEnumerable<string>> SequentialAsync()
         {
             var downloader = new SequentialRawLoader();
+            return await downloader.LoadAsync(_uris);
+        }
+
+        //[BenchmarkCategory("Sequential")]
+        //[Benchmark]
+        public async Task<IEnumerable<DummyData>> SequentialDeserializingAsync()
+        {
+            var downloader = new SequentialDeserializingLoader();
             return await downloader.LoadAsync(_uris);
         }
 
@@ -73,14 +81,6 @@ namespace Parallelator.Client
         public async Task<IEnumerable<string>> DataFlowStrPayloadAsync()
         {
             var downloader = new DataFlowRawLoader(Constants.MaxConcurrency);
-            return await downloader.LoadAsync(_uris);
-        }
-
-        [BenchmarkCategory("Deserializing")]
-        [Benchmark(Baseline = true)]
-        public async Task<IEnumerable<DummyData>> SequentialDeserializingAsync()
-        {
-            var downloader = new SequentialDeserializingLoader();
             return await downloader.LoadAsync(_uris);
         }
 
