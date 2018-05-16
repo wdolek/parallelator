@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parallelator.DummySite", "Parallelator.DummySite\Parallelator.DummySite.csproj", "{9A686580-0C07-495D-B1A8-096CFFA8E9D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.DummySite", "Parallelator.DummySite\Parallelator.DummySite.csproj", "{9A686580-0C07-495D-B1A8-096CFFA8E9D7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.Client", "Parallelator.Client\Parallelator.Client.csproj", "{8710BED3-F75F-4F86-9C87-9409D5AAB9C1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.Common", "Parallelator.Common\Parallelator.Common.csproj", "{5137F562-4113-401B-BB19-AF7F573886A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parallelator.Client.Tests", "Parallelator.Client.Tests\Parallelator.Client.Tests.csproj", "{F7218FAA-DE17-4BB4-A2A8-24F70998DFE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{9A686580-0C07-495D-B1A8-096CFFA8E9D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A686580-0C07-495D-B1A8-096CFFA8E9D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A686580-0C07-495D-B1A8-096CFFA8E9D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8710BED3-F75F-4F86-9C87-9409D5AAB9C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8710BED3-F75F-4F86-9C87-9409D5AAB9C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8710BED3-F75F-4F86-9C87-9409D5AAB9C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8710BED3-F75F-4F86-9C87-9409D5AAB9C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5137F562-4113-401B-BB19-AF7F573886A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5137F562-4113-401B-BB19-AF7F573886A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5137F562-4113-401B-BB19-AF7F573886A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5137F562-4113-401B-BB19-AF7F573886A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7218FAA-DE17-4BB4-A2A8-24F70998DFE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7218FAA-DE17-4BB4-A2A8-24F70998DFE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7218FAA-DE17-4BB4-A2A8-24F70998DFE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7218FAA-DE17-4BB4-A2A8-24F70998DFE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

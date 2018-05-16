@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Net;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace Parallelator.DummySite
 {
@@ -19,6 +13,11 @@ namespace Parallelator.DummySite
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(o =>
+                {
+                    o.Limits.MaxConcurrentConnections = Common.Constants.MaxConcurrency;
+                    o.Listen(IPAddress.Any, 5000);
+                })
                 .UseStartup<Startup>()
                 .Build();
     }
