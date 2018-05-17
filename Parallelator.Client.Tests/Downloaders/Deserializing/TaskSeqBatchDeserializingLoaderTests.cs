@@ -1,17 +1,27 @@
-﻿using Parallelator.Client.Loaders;
+﻿using System.Threading.Tasks;
 using Parallelator.Client.Loaders.Deserializing;
 using Parallelator.Common;
+using Xunit;
 
 namespace Parallelator.Client.Tests.Downloaders.Deserializing
 {
-    public class TaskSeqBatchDeserializingLoaderTests : DeserializingLoaderTestBase
+    public class TaskSeqBatchDeserializingLoaderTests : TestBase<TaskSeqBatchDeserializingLoader, DummyData>
     {
-        public TaskSeqBatchDeserializingLoaderTests() 
+        public TaskSeqBatchDeserializingLoaderTests()
             : base(10, 100)
         {
         }
 
-        protected override IThingyLoader<DummyData> CreateDownloader() =>
-            new TaskSeqBatchDeserializingLoader(Constants.MaxConcurrency);
+        [Fact]
+        public async Task DownloadAsync_WhenLowConcurrency_ExpectCorretNumOfResults()
+        {
+            await TestHappyPath(DummyDataEqualityComparer.Instance, Constants.MaxConcurrency);
+        }
+
+        [Fact]
+        public async Task DownloadAsync_WhenHighConcurrency_ExpectException()
+        {
+            await TestExceptionPath(Constants.MaxConcurrency + 1);
+        }
     }
 }
