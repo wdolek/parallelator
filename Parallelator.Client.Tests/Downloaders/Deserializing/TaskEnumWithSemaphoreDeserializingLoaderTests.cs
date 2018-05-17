@@ -4,14 +4,14 @@ using Parallelator.Common;
 
 namespace Parallelator.Client.Tests.Downloaders.Deserializing
 {
-    public class TaskEnumerableQueueDeserializingLoaderTests : DeserializingLoaderTestBase
+    public class TaskEnumWithSemaphoreDeserializingLoaderTests : DeserializingLoaderTestBase
     {
-        public TaskEnumerableQueueDeserializingLoaderTests() 
+        public TaskEnumWithSemaphoreDeserializingLoaderTests() 
             : base(10, 100)
         {
         }
 
         protected override IThingyLoader<DummyData> CreateDownloader() =>
-            new TaskEnumerableQueueDeserializingLoader(Constants.MaxConcurrency);
+            new TaskEnumWithSemaphoreDeserializingLoader(Constants.MaxConcurrency);
     }
 }

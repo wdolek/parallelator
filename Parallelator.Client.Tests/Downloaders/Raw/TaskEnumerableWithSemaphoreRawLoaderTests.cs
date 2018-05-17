@@ -12,6 +12,6 @@ namespace Parallelator.Client.Tests.Downloaders.Raw
         }
 
         protected override IThingyLoader<string> CreateDownloader() =>
-            new TaskEnumerableWithSemaphoreRawLoader(Constants.MaxConcurrency);
+            new TaskEnumWithSemaphoreRawLoader(Constants.MaxConcurrency);
     }
 }

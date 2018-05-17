@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -9,17 +10,14 @@ namespace Parallelator.Client.Loaders.Raw
     {
         public async Task<IEnumerable<string>> LoadAsync(IEnumerable<Uri> uris)
         {
-            if (uris == null)
-            {
-                throw new ArgumentNullException(nameof(uris));
-            }
+            Uri[] input = uris as Uri[] ?? uris.ToArray();
 
-            var result = new LinkedList<string>();
+            var result = new List<string>(input.Length);
             using (var client = new HttpClient())
             {
-                foreach (Uri uri in uris)
+                foreach (Uri uri in input)
                 {
-                    result.AddLast(await client.GetStringAsync(uri));
+                    result.Add(await client.GetStringAsync(uri));
                 }
             }
 

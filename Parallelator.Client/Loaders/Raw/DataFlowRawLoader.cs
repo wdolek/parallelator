@@ -7,7 +7,6 @@ using System.Threading.Tasks.Dataflow;
 
 namespace Parallelator.Client.Loaders.Raw
 {
-    // https://stackoverflow.com/questions/22492383/throttling-asynchronous-tasks/22492731#22492731
     public class DataFlowRawLoader : IThingyLoader<string>
     {
         private readonly int _maxParallelism;
@@ -28,10 +27,10 @@ namespace Parallelator.Client.Loaders.Raw
             IList<string> result;
             using (var client = new HttpClient())
             {
-                var buffer = new BufferBlock<string>();
                 var downloader = new TransformBlock<Uri, string>(
                     async u => await client.GetStringAsync(u),
                     new ExecutionDataflowBlockOptions { MaxDegreeOfParallelism = _maxParallelism });
+                var buffer = new BufferBlock<string>();
 
                 downloader.LinkTo(buffer);
 

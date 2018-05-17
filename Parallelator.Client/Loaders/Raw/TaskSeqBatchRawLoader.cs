@@ -22,7 +22,6 @@ namespace Parallelator.Client.Loaders.Raw
 
         public async Task<IEnumerable<string>> LoadAsync(IEnumerable<Uri> uris)
         {
-            // prevent possible repetitive enumeration && make access easier
             Uri[] input = uris as Uri[] ?? uris.ToArray();
 
             var result = new List<string>();

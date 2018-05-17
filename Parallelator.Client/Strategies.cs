@@ -24,16 +24,16 @@ namespace Parallelator.Client
     {
         private Uri[] _uris;
 
-        [Params(255)]
-        public int Total { get; set; }
+        [Params(1000)]
+        public int NumOfEntries { get; set; }
 
-        [Params(500)]
-        public int Delay { get; set; }
+        [Params(32,512)]
+        public int ResponseDelay { get; set; }
 
         [GlobalSetup]
         public void Setup()
         {
-            _uris = ApiUriBuilder.GenerateUris(Delay, Total);
+            _uris = ApiUriBuilder.GenerateUris(ResponseDelay, NumOfEntries);
         }
 
         //[BenchmarkCategory("Sequential")]
@@ -72,7 +72,7 @@ namespace Parallelator.Client
         [Benchmark]
         public async Task<IEnumerable<string>> SequentialBatchWithSemaphoreAsync()
         {
-            var downloader = new TaskEnumerableWithSemaphoreRawLoader(Constants.MaxConcurrency);
+            var downloader = new TaskEnumWithSemaphoreRawLoader(Constants.MaxConcurrency);
             return await downloader.LoadAsync(_uris);
         }
 
@@ -102,9 +102,9 @@ namespace Parallelator.Client
 
         [BenchmarkCategory("Deserializing")]
         [Benchmark]
-        public async Task<IEnumerable<DummyData>> TaskEnumerableDeserializingWithSemaphoreAsync()
+        public async Task<IEnumerable<DummyData>> TaskEnumWithSemaphoreDeserializingLoaderAsync()
         {
-            var downloader = new TaskEnumerableQueueDeserializingLoader(Constants.MaxConcurrency);
+            var downloader = new TaskEnumWithSemaphoreDeserializingLoader(Constants.MaxConcurrency);
             return await downloader.LoadAsync(_uris);
         }
 

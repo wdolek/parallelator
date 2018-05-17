@@ -32,6 +32,8 @@ namespace Parallelator.Client.Loaders.Deserializing
             var result = new List<DummyData>();
             using (var client = new HttpClient())
             {
+                // iterate over input data, await for batch of given size,
+                // continue until all entries are not processed
                 for (var i = 0; i < input.Length; i = i + _batchSize)
                 {
                     IEnumerable<Task<DummyData>> tasks =
@@ -40,6 +42,7 @@ namespace Parallelator.Client.Loaders.Deserializing
                             .Take(_batchSize)
                             .Select(async u => await client.GetPayloadAsync<DummyData>(u, Serializer));
 
+                    // await all tasks in batch
                     result.AddRange(await Task.WhenAll(tasks));
                 }
             }

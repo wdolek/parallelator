@@ -21,7 +21,7 @@ namespace Parallelator.Client.Loaders.Raw
 
         public async Task<IEnumerable<string>> LoadAsync(IEnumerable<Uri> uris)
         {
-            var result = new LinkedList<string>();
+            var result = new List<string>();
             var queue = new List<Task<string>>(_batchSize);
 
             using (var client = new HttpClient())
@@ -39,7 +39,7 @@ namespace Parallelator.Client.Loaders.Raw
                             string[] finishedTaskResults = await Task.WhenAll(queue);
                             foreach (string taskResult in finishedTaskResults)
                             {
-                                result.AddLast(taskResult);
+                                result.Add(taskResult);
                             }
                         }
 
@@ -55,7 +55,7 @@ namespace Parallelator.Client.Loaders.Raw
                     {
                         Task<string> finishedTask = await Task.WhenAny(queue);
                         queue.Remove(finishedTask);
-                        result.AddLast(finishedTask.Result);
+                        result.Add(finishedTask.Result);
                     }
                 }
             }

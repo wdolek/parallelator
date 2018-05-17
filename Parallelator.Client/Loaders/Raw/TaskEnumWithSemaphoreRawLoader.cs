@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 namespace Parallelator.Client.Loaders.Raw
 {
     // https://stackoverflow.com/questions/22492383/throttling-asynchronous-tasks/22493662#22493662
-    public class TaskEnumerableWithSemaphoreRawLoader : IThingyLoader<string>
+    public class TaskEnumWithSemaphoreRawLoader : IThingyLoader<string>
     {
         private readonly int _batchSize;
 
-        public TaskEnumerableWithSemaphoreRawLoader(int batchSize)
+        public TaskEnumWithSemaphoreRawLoader(int batchSize)
         {
             if (batchSize < 1)
             {
