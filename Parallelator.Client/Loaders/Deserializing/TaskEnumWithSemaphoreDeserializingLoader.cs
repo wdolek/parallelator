@@ -44,19 +44,20 @@ namespace Parallelator.Client.Loaders.Deserializing
                 // - when loading is complete, result is enqueued to processing consumer which handles deserialization
                 // - enqueing of tasks is sequential
                 // - at the end `tasks` will contain completed tasks representing download
-                IEnumerable<Task> tasks = input.Select(async u =>
-                {
-                    await semaphore.WaitAsync();
-                    try
+                IEnumerable<Task> tasks = input.Select(
+                    async u =>
                     {
-                        string payload = await httpClient.GetStringAsync(u);
-                        processing.Enqueue(payload);
-                    }
-                    finally
-                    {
-                        semaphore.Release();
-                    }
-                });
+                        await semaphore.WaitAsync();
+                        try
+                        {
+                            string payload = await httpClient.GetStringAsync(u);
+                            processing.QueueItem(payload);
+                        }
+                        finally
+                        {
+                            semaphore.Release();
+                        }
+                    });
 
                 // await all download tasks
                 await Task.WhenAll(tasks);
@@ -64,32 +65,43 @@ namespace Parallelator.Client.Loaders.Deserializing
                 // await deserialization
                 // - at this point, we know that we collected all data for deserialization
                 //   (for general usage we would need to lock queue/processing to avoid race condition)
-                return await processing.Completion;
+                return await processing.WaitForCompleteAsync();
             }
         }
-       
-        /// <summary>
-        /// Processing consumer.
-        /// </summary>
-        /// <remarks>
-        /// This consumer is not thread safe! Implemented minimalist way to demonstrate downloading/deserialization.
-        /// </remarks>
-        /// <typeparam name="TThingy">Type of thingy.</typeparam>
+
         private class Processing<TThingy>
             where TThingy : class
         {
-            private readonly List<Task<TThingy>> _pending;
             private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(Environment.ProcessorCount);
+            private readonly List<Task<TThingy>> _pending;
+
+            private readonly object _lock = new object();
 
             public Processing(int queueSize)
             {
                 _pending = new List<Task<TThingy>>(queueSize);
             }
 
-            public Task<TThingy[]> Completion => Task.WhenAll(_pending);
+            public void QueueItem(string data)
+            {
+                Task<TThingy> task = ProcessAsync(data);
+                lock (_lock)
+                {
+                    _pending.Add(task);
+                }
+            }
 
-            public void Enqueue(string data) => 
-                _pending.Add(ProcessAsync(data));
+            public async Task<TThingy[]> WaitForCompleteAsync()
+            {
+                Task<TThingy>[] tasks;
+                lock (_lock)
+                {
+                    tasks = _pending.ToArray();
+                    _pending.Clear();
+                }
+
+                return await Task.WhenAll(tasks);
+            }
 
             private async Task<TThingy> ProcessAsync(string data)
             {
