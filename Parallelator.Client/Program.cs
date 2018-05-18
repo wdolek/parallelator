@@ -1,5 +1,5 @@
-﻿using BenchmarkDotNet.Reports;
-using BenchmarkDotNet.Running;
+﻿using BenchmarkDotNet.Running;
+using Parallelator.Client.Benchmarks;
 
 namespace Parallelator.Client
 {
@@ -7,7 +7,11 @@ namespace Parallelator.Client
     {
         static void Main(string[] args)
         {
-            Summary summary = BenchmarkRunner.Run<Strategies>();
+            var switcher = new BenchmarkSwitcher(new[] {
+                typeof(RawLoaderBenchmarks),
+                typeof(DeserializingLoaderBenchmarks)
+            });
+            switcher.Run(args);
         }
     }
 }

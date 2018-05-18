@@ -4,23 +4,19 @@ using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Attributes.Columns;
 using BenchmarkDotNet.Attributes.Jobs;
-using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Engines;
 using BenchmarkDotNet.Mathematics;
 using BenchmarkDotNet.Order;
 using Parallelator.Client.Loaders.Deserializing;
-using Parallelator.Client.Loaders.Raw;
 using Parallelator.Common;
 
-namespace Parallelator.Client
+namespace Parallelator.Client.Benchmarks
 {
     [SimpleJob(RunStrategy.Monitoring, launchCount: 1, warmupCount: 0, targetCount: 3)]
     [MemoryDiagnoser]
-    [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
-    [CategoriesColumn]
     [RankColumn(NumeralSystem.Stars)]
     [OrderProvider(SummaryOrderPolicy.SlowestToFastest)]
-    public class Strategies
+    public class DeserializingLoaderBenchmarks
     {
         private Uri[] _uris;
 
@@ -36,15 +32,6 @@ namespace Parallelator.Client
             _uris = ApiUriBuilder.GenerateUris(ResponseDelay, NumOfEntries);
         }
 
-        //[BenchmarkCategory("Sequential")]
-        //[Benchmark]
-        public async Task<IEnumerable<string>> SequentialAsync()
-        {
-            var downloader = new SequentialRawLoader();
-            return await downloader.LoadAsync(_uris);
-        }
-
-        //[BenchmarkCategory("Sequential")]
         //[Benchmark]
         public async Task<IEnumerable<DummyData>> SequentialDeserializingAsync()
         {
@@ -52,39 +39,6 @@ namespace Parallelator.Client
             return await downloader.LoadAsync(_uris);
         }
 
-        [BenchmarkCategory("Raw")]
-        [Benchmark]
-        public async Task<IEnumerable<string>> ContinuousBatchAsync()
-        {
-            var downloader = new TaskContinuousBatchRawLoader(Constants.MaxConcurrency);
-            return await downloader.LoadAsync(_uris);
-        }
-
-        [BenchmarkCategory("Raw")]
-        [Benchmark]
-        public async Task<IEnumerable<string>> SequentialBatchAsync()
-        {
-            var downloader = new TaskSeqBatchRawLoader(Constants.MaxConcurrency);
-            return await downloader.LoadAsync(_uris);
-        }
-
-        [BenchmarkCategory("Raw")]
-        [Benchmark]
-        public async Task<IEnumerable<string>> SequentialBatchWithSemaphoreAsync()
-        {
-            var downloader = new TaskEnumWithSemaphoreRawLoader(Constants.MaxConcurrency);
-            return await downloader.LoadAsync(_uris);
-        }
-
-        [BenchmarkCategory("Raw")]
-        [Benchmark]
-        public async Task<IEnumerable<string>> DataFlowStrPayloadAsync()
-        {
-            var downloader = new DataFlowRawLoader(Constants.MaxConcurrency);
-            return await downloader.LoadAsync(_uris);
-        }
-
-        [BenchmarkCategory("Deserializing")]
         [Benchmark]
         public async Task<IEnumerable<DummyData>> ContinuousBatchDeserializingAsync()
         {
@@ -92,7 +46,6 @@ namespace Parallelator.Client
             return await downloader.LoadAsync(_uris);
         }
 
-        [BenchmarkCategory("Deserializing")]
         [Benchmark]
         public async Task<IEnumerable<DummyData>> SequentialBatchDeserializingAsync()
         {
@@ -100,7 +53,6 @@ namespace Parallelator.Client
             return await downloader.LoadAsync(_uris);
         }
 
-        [BenchmarkCategory("Deserializing")]
         [Benchmark]
         public async Task<IEnumerable<DummyData>> TaskEnumWithSemaphoreDeserializingLoaderAsync()
         {
@@ -108,7 +60,6 @@ namespace Parallelator.Client
             return await downloader.LoadAsync(_uris);
         }
 
-        [BenchmarkCategory("Deserializing")]
         [Benchmark]
         public async Task<IEnumerable<DummyData>> DataFlowDeserializingPayloadAsync()
         {
@@ -116,7 +67,6 @@ namespace Parallelator.Client
             return await downloader.LoadAsync(_uris);
         }
 
-        [BenchmarkCategory("Deserializing")]
         [Benchmark]
         public async Task<IEnumerable<DummyData>> ParallelInvokeDeserializingLoaderAsync()
         {
