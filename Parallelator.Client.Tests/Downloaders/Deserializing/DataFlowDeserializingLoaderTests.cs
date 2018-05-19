@@ -5,9 +5,9 @@ using Xunit;
 
 namespace Parallelator.Client.Tests.Downloaders.Deserializing
 {
-    public class DataFlowDeserializingLoaderTests : TestBase<DataFlowDeserializingLoader,DummyData>
+    public class DataFlowDeserializingLoaderTests : TestBase<DataFlowDeserializingLoader, DummyData>
     {
-        public DataFlowDeserializingLoaderTests() 
+        public DataFlowDeserializingLoaderTests()
             : base(50, 100)
         {
         }

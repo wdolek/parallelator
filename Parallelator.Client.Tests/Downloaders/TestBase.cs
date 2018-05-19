@@ -22,18 +22,43 @@ namespace Parallelator.Client.Tests.Downloaders
 
         public async Task TestHappyPath(IEqualityComparer<TThingy> comparer, params object[] ctorArgs)
         {
+            TThingy[] response;
             IThingyLoader<TThingy> loader = CreateLoader(ctorArgs);
-            TThingy[] response = (await loader.LoadAsync(_uris)).ToArray();
+            try
+            {
+                response = (await loader.LoadAsync(_uris)).ToArray();
+            }
+            finally
+            {
+                if (loader is IDisposable disposableLoader)
+                {
+                    disposableLoader.Dispose();
+                }
+            }
 
             Assert.Equal(_total, response.Distinct(comparer).Count());
+            AssertResult(response);
         }
 
         public async Task TestExceptionPath(params object[] ctorArgs)
         {
             IThingyLoader<TThingy> loader = CreateLoader(ctorArgs);
-            Func<Task> act = () => loader.LoadAsync(_uris);
+            try
+            {
+                Func<Task> act = () => loader.LoadAsync(_uris);
+                await Assert.ThrowsAnyAsync<Exception>(act);
+            }
+            finally
+            {
+                if (loader is IDisposable disposableLoader)
+                {
+                    disposableLoader.Dispose();
+                }
+            }
+        }
 
-            await Assert.ThrowsAnyAsync<Exception>(act);
+        protected virtual void AssertResult(TThingy[] thingies)
+        {
         }
 
         private static IThingyLoader<TThingy> CreateLoader(params object[] args) =>
