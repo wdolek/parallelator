@@ -23,7 +23,7 @@ namespace Parallelator.Client.Benchmarks
         [Params(1000)]
         public int NumOfEntries { get; set; }
 
-        [Params(32,512)]
+        [Params(512)]
         public int ResponseDelay { get; set; }
 
         [GlobalSetup]
