@@ -1,0 +1,1 @@
+dotnet Parallelator.Client\bin\Release\netcoreapp2.0\Parallelator.Client.dll
