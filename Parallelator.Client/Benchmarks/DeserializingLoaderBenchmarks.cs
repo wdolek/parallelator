@@ -68,6 +68,13 @@ namespace Parallelator.Client.Benchmarks
         }
 
         [Benchmark]
+        public async Task<IEnumerable<DummyData>> DataFlowStreamDeserializingLoaderAsync()
+        {
+            var downloader = new DataFlowStreamDeserializingLoader(Constants.MaxConcurrency);
+            return await downloader.LoadAsync(_uris);
+        }
+
+        [Benchmark]
         public async Task<IEnumerable<DummyData>> ParallelInvokeDeserializingLoaderAsync()
         {
             var downloader = new ParallelInvokeDeserializingLoader(Constants.MaxConcurrency);
