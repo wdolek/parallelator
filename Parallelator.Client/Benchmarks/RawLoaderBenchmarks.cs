@@ -20,10 +20,10 @@ namespace Parallelator.Client.Benchmarks
     {
         private Uri[] _uris;
 
-        [Params(1000)]
+        [Params(255)]
         public int NumOfEntries { get; set; }
 
-        [Params(32, 512)]
+        [Params(512)]
         public int ResponseDelay { get; set; }
 
         [GlobalSetup]
@@ -32,36 +32,36 @@ namespace Parallelator.Client.Benchmarks
             _uris = ApiUriBuilder.GenerateUris(ResponseDelay, NumOfEntries);
         }
 
-        //[Benchmark]
-        public async Task<IEnumerable<string>> SequentialAsync()
+        [Benchmark]
+        public async Task<IEnumerable<string>> SequentialRawLoaderAsync()
         {
             var downloader = new SequentialRawLoader();
             return await downloader.LoadAsync(_uris);
         }
 
         [Benchmark]
-        public async Task<IEnumerable<string>> ContinuousBatchAsync()
+        public async Task<IEnumerable<string>> TaskContinuousBatchRawLoaderAsync()
         {
             var downloader = new TaskContinuousBatchRawLoader(Constants.MaxConcurrency);
             return await downloader.LoadAsync(_uris);
         }
 
         [Benchmark]
-        public async Task<IEnumerable<string>> SequentialBatchAsync()
+        public async Task<IEnumerable<string>> TaskSeqBatchRawLoaderAsync()
         {
             var downloader = new TaskSeqBatchRawLoader(Constants.MaxConcurrency);
             return await downloader.LoadAsync(_uris);
         }
 
         [Benchmark]
-        public async Task<IEnumerable<string>> SequentialBatchWithSemaphoreAsync()
+        public async Task<IEnumerable<string>> TaskEnumWithSemaphoreRawLoaderAsync()
         {
             var downloader = new TaskEnumWithSemaphoreRawLoader(Constants.MaxConcurrency);
             return await downloader.LoadAsync(_uris);
         }
 
         [Benchmark]
-        public async Task<IEnumerable<string>> DataFlowStrPayloadAsync()
+        public async Task<IEnumerable<string>> DataFlowRawLoaderAsync()
         {
             var downloader = new DataFlowRawLoader(Constants.MaxConcurrency);
             return await downloader.LoadAsync(_uris);
