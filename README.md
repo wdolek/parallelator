@@ -1,13 +1,14 @@
 ## Parallelator
 
-Tiny miny benchmark of various data fetching (I/O) approaches. There's no exception handling, code contained in this
+Tiny miny benchmark of various data fetching (I/O) strategies. There's no exception handling, code contained in this
 repository is __not production-ready__!
 
 In order to run benchmark:
 
 * Compile with `Release`
-* Start `Parallelator.DummySite`
-* Start `Parallelator.Client`
+* Run `run-api.bat`
+* Run `run-benchmark.bat`
+* Wait...
 
 Have fun!
 

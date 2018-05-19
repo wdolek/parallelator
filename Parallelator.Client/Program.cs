@@ -8,8 +8,8 @@ namespace Parallelator.Client
         static void Main(string[] args)
         {
             var switcher = new BenchmarkSwitcher(new[] {
+                typeof(DeserializingLoaderBenchmarks),
                 typeof(RawLoaderBenchmarks),
-                typeof(DeserializingLoaderBenchmarks)
             });
             switcher.Run(args);
         }
