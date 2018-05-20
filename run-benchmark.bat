@@ -1,1 +1,1 @@
-dotnet Parallelator.Client\bin\Release\netcoreapp2.0\Parallelator.Client.dll
+dotnet Parallelator.Benchmark\bin\Release\netcoreapp2.0\Parallelator.Benchmark.dll
