@@ -43,6 +43,7 @@ namespace Parallelator.Loaders.Deserializing
             using (var client = new HttpClient())
             {
                 // build array of actions to run in parallel
+                // NB! action is blocking thread (.Result)
                 Action[] actions = uris.Select<Uri, Action>(
                         u => () => { bag.Add(client.GetPayloadAsync<DummyData>(u, Serializer).Result); })
                     .ToArray();

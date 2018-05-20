@@ -9,7 +9,7 @@ using Parallelator.Common;
 namespace Parallelator.Loaders.Deserializing
 {
     /// <summary>
-    /// Implementing simple producer-consumer pattern. Since producer gives us only `Task` which are created quickly
+    /// Implementing simple producer-consumer pattern. Since producer gives us only `Task` which are created quickly,
     /// throttling is achieved by combination of blocking collection capacity and speed of consumer.
     /// This requires some manual fiddling to find sweet spot. For better control, semaphore could be use, but that
     /// is approach for another loader.
@@ -99,7 +99,6 @@ namespace Parallelator.Loaders.Deserializing
                     }
                 });
 
-            // await consumer only (won't end before producer, so we don't really care about it)
             await consumer;
 
             return bag;
