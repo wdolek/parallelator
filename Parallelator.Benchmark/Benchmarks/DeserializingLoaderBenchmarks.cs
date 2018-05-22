@@ -88,10 +88,19 @@ namespace Parallelator.Benchmark.Benchmarks
             return await downloader.LoadAsync(_uris);
         }
 
-        [Benchmark(Description = "Producer-Consumer with blocking collection")]
-        public async Task<IEnumerable<DummyData>> ProducerConsumerDeserializingLoaderAsync()
+        [Benchmark(Description = "Producer-Consumer 1:1 producer->task, consumer->await & deserializes")]
+        public async Task<IEnumerable<DummyData>> ProducerTaskConsumerAwaitsDeserializingLoaderAsync()
         {
-            using (var downloader = new ProducerConsumerDeserializingLoader(Constants.MaxConcurrency))
+            using (var downloader = new ProducerTaskConsumerAwaitsDeserializingLoader(Constants.MaxConcurrency))
+            {
+                return await downloader.LoadAsync(_uris);
+            }
+        }
+
+        [Benchmark(Description = "Producer-Consumer 1:1 producer->string, consumer->deserializes")]
+        public async Task<IEnumerable<DummyData>> Producer1Consumer1DeserializingLoaderAsync()
+        {
+            using (var downloader = new Producer1Consumer1DeserializingLoader(Constants.MaxConcurrency))
             {
                 return await downloader.LoadAsync(_uris);
             }

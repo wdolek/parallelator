@@ -14,12 +14,12 @@ namespace Parallelator.Loaders.Deserializing
     /// This requires some manual fiddling to find sweet spot. For better control, semaphore could be use, but that
     /// is approach for another loader.
     /// </summary>
-    public sealed class ProducerConsumerDeserializingLoader : IThingyLoader<DummyData>, IDisposable
+    public sealed class ProducerTaskConsumerAwaitsDeserializingLoader : IThingyLoader<DummyData>, IDisposable
     {
         private readonly HttpClient _client;
         private readonly int _boundedCapacity;
 
-        public ProducerConsumerDeserializingLoader(int boundedCapacity)
+        public ProducerTaskConsumerAwaitsDeserializingLoader(int boundedCapacity)
         {
             if (boundedCapacity < 1)
             {
@@ -33,6 +33,7 @@ namespace Parallelator.Loaders.Deserializing
             _boundedCapacity = Math.Max(1, boundedCapacity / 2);
         }
 
+        /// <inheritdoc />
         public async Task<IEnumerable<DummyData>> LoadAsync(IEnumerable<Uri> uris)
         {
             var bag = new ConcurrentBag<DummyData>();
