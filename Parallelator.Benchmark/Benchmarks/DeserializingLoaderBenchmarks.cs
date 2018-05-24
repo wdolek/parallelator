@@ -105,5 +105,14 @@ namespace Parallelator.Benchmark.Benchmarks
                 return await downloader.LoadAsync(_uris);
             }
         }
+
+        //[Benchmark(Description = "Producer-Consumer with Threads")]
+        public async Task<IEnumerable<DummyData>> ProducerConsumerThreadsDeserializingLoaderAsync()
+        {
+            using (var downloader = new ProducerConsumerThreadsDeserializingLoader(Constants.MaxConcurrency))
+            {
+                return await downloader.LoadAsync(_uris);
+            }
+        }
     }
 }
