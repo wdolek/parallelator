@@ -55,14 +55,20 @@ namespace Parallelator.Loaders.Deserializing
             var loadingWorkers = new Thread[_workerCount];
             for (var i = 0; i < loadingWorkers.Length; i++)
             {
-                loadingWorkers[i] = new Thread(LoadPayload);
+                loadingWorkers[i] = new Thread(LoadPayload)
+                {
+                    Priority = ThreadPriority.Lowest
+                };
                 loadingWorkers[i].Start();
             }
 
             var deserializationWorkers = new Thread[Environment.ProcessorCount];
             for (var i = 0; i < deserializationWorkers.Length; i++)
             {
-                deserializationWorkers[i] = new Thread(DeserializePayload);
+                deserializationWorkers[i] = new Thread(DeserializePayload)
+                {
+                    Priority = ThreadPriority.Lowest
+                };
                 deserializationWorkers[i].Start();
             }
 
