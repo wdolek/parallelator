@@ -74,7 +74,7 @@ namespace Parallelator.Benchmark.Benchmarks
             return await downloader.LoadAsync(_uris);
         }
 
-        [Benchmark(Description = "Parallel.Invoke with DoP")]
+        [Benchmark(Description = "Parallel.Invoke with degree of parallelism")]
         public async Task<IEnumerable<DummyData>> ParallelInvokeDeserializingLoaderAsync()
         {
             var downloader = new ParallelInvokeDeserializingLoader(Constants.MaxConcurrency);
@@ -88,7 +88,7 @@ namespace Parallelator.Benchmark.Benchmarks
             return await downloader.LoadAsync(_uris);
         }
 
-        [Benchmark(Description = "Producer-Consumer 1:1 producer->task, consumer->await & deserializes")]
+        [Benchmark(Description = "Producer-Consumer 1:1, producer->task, consumer->await & deserializes")]
         public async Task<IEnumerable<DummyData>> ProducerTaskConsumerAwaitsDeserializingLoaderAsync()
         {
             using (var downloader = new ProducerTaskConsumerAwaitsDeserializingLoader(Constants.MaxConcurrency))
@@ -97,7 +97,7 @@ namespace Parallelator.Benchmark.Benchmarks
             }
         }
 
-        [Benchmark(Description = "Producer-Consumer 1:1 producer->string, consumer->deserializes")]
+        [Benchmark(Description = "Producer-Consumer 1:1, producer->string, consumer->deserializes")]
         public async Task<IEnumerable<DummyData>> Producer1Consumer1DeserializingLoaderAsync()
         {
             using (var downloader = new Producer1Consumer1DeserializingLoader(Constants.MaxConcurrency))
