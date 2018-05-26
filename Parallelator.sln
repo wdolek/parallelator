@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.DummyFeed", "Parallelator.DummyFeed\Parallelator.DummyFeed.csproj", "{9A686580-0C07-495D-B1A8-096CFFA8E9D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.DummyFeed", "src\Parallelator.DummyFeed\Parallelator.DummyFeed.csproj", "{9A686580-0C07-495D-B1A8-096CFFA8E9D7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.Benchmark", "Parallelator.Benchmark\Parallelator.Benchmark.csproj", "{8710BED3-F75F-4F86-9C87-9409D5AAB9C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.Benchmark", "src\Parallelator.Benchmark\Parallelator.Benchmark.csproj", "{8710BED3-F75F-4F86-9C87-9409D5AAB9C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.Common", "Parallelator.Common\Parallelator.Common.csproj", "{5137F562-4113-401B-BB19-AF7F573886A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.Common", "src\Parallelator.Common\Parallelator.Common.csproj", "{5137F562-4113-401B-BB19-AF7F573886A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.Loader.Tests", "Parallelator.Loader.Tests\Parallelator.Loader.Tests.csproj", "{F7218FAA-DE17-4BB4-A2A8-24F70998DFE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.Loader.Tests", "src\Parallelator.Loader.Tests\Parallelator.Loader.Tests.csproj", "{F7218FAA-DE17-4BB4-A2A8-24F70998DFE0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{63421F95-9D80-44AC-AD05-DBBEBAD481F2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "stuff", "stuff", "{63421F95-9D80-44AC-AD05-DBBEBAD481F2}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
 		README.md = README.md
@@ -19,7 +19,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		run-benchmark.bat = run-benchmark.bat
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parallelator.Loaders", "Parallelator.Loaders\Parallelator.Loaders.csproj", "{744A7379-C822-4F4A-A64E-6DF897E94082}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.Loaders", "src\Parallelator.Loaders\Parallelator.Loaders.csproj", "{744A7379-C822-4F4A-A64E-6DF897E94082}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{69722658-6489-478D-89F3-BD645B6832DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{5AB7797A-CB70-4DE2-A61B-FA7B986FDF4B}"
+	ProjectSection(SolutionItems) = preProject
+		docs\description.md = docs\description.md
+		docs\deserializing_loaders.md = docs\deserializing_loaders.md
+		docs\raw_loaders.md = docs\raw_loaders.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +59,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9A686580-0C07-495D-B1A8-096CFFA8E9D7} = {69722658-6489-478D-89F3-BD645B6832DF}
+		{8710BED3-F75F-4F86-9C87-9409D5AAB9C1} = {69722658-6489-478D-89F3-BD645B6832DF}
+		{5137F562-4113-401B-BB19-AF7F573886A9} = {69722658-6489-478D-89F3-BD645B6832DF}
+		{F7218FAA-DE17-4BB4-A2A8-24F70998DFE0} = {69722658-6489-478D-89F3-BD645B6832DF}
+		{744A7379-C822-4F4A-A64E-6DF897E94082} = {69722658-6489-478D-89F3-BD645B6832DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ACCD0979-7B77-4887-8D83-F65AC1C147C2}

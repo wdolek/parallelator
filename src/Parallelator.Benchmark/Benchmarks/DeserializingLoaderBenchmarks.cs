@@ -60,14 +60,14 @@ namespace Parallelator.Benchmark.Benchmarks
             return await downloader.LoadAsync(_uris);
         }
 
-        [Benchmark(Description = "Data-Flow obtaining string")]
+        [Benchmark(Description = "TPL Dataflow obtaining string")]
         public async Task<IEnumerable<DummyData>> DataFlowDeserializingLoaderAsync()
         {
             var downloader = new DataFlowDeserializingLoader(Constants.MaxConcurrency);
             return await downloader.LoadAsync(_uris);
         }
 
-        [Benchmark(Description = "Data-Flow obtaining stream")]
+        [Benchmark(Description = "TPL Dataflow obtaining stream")]
         public async Task<IEnumerable<DummyData>> DataFlowStreamDeserializingLoaderAsync()
         {
             var downloader = new DataFlowStreamDeserializingLoader(Constants.MaxConcurrency);
@@ -81,7 +81,7 @@ namespace Parallelator.Benchmark.Benchmarks
             return await downloader.LoadAsync(_uris);
         }
 
-        [Benchmark(Description = "ForEachAsync with concurrent bag")]
+        [Benchmark(Description = "ForEachAsync with concurrent bag as storage")]
         public async Task<IEnumerable<DummyData>> ParallelForEachDeserializingLoaderAsync()
         {
             var downloader = new ParallelForEachDeserializingLoader(Constants.MaxConcurrency);
