@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Attributes.Columns;
-using BenchmarkDotNet.Attributes.Jobs;
 using BenchmarkDotNet.Engines;
 using BenchmarkDotNet.Mathematics;
 using BenchmarkDotNet.Order;
@@ -15,7 +13,7 @@ namespace Parallelator.Benchmark.Benchmarks
     [SimpleJob(RunStrategy.Monitoring, launchCount: 1, warmupCount: 0, targetCount: 3)]
     [MemoryDiagnoser]
     [RankColumn(NumeralSystem.Stars)]
-    [OrderProvider(SummaryOrderPolicy.SlowestToFastest)]
+    [Orderer(SummaryOrderPolicy.FastestToSlowest)]
     public class DeserializingLoaderBenchmarks
     {
         private Uri[] _uris;
