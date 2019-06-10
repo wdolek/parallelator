@@ -30,8 +30,8 @@ namespace Parallelator.Loaders.Raw
                 var downloader = new TransformBlock<Uri, string>(
                     async u => await client.GetStringAsync(u),
                     new ExecutionDataflowBlockOptions { MaxDegreeOfParallelism = _maxParallelism });
-                var buffer = new BufferBlock<string>();
 
+                var buffer = new BufferBlock<string>();
                 downloader.LinkTo(buffer);
 
                 foreach (Uri uri in uris)

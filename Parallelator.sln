@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2043
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.DummyFeed", "src\Parallelator.DummyFeed\Parallelator.DummyFeed.csproj", "{9A686580-0C07-495D-B1A8-096CFFA8E9D7}"
 EndProject
@@ -13,6 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parallelator.Loader.Tests",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{63421F95-9D80-44AC-AD05-DBBEBAD481F2}"
 	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
 		LICENSE = LICENSE
 		README.md = README.md
 		run-api.bat = run-api.bat

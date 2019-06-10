@@ -25,8 +25,8 @@ namespace Parallelator.Loaders.Deserializing
             {
                 foreach (Uri uri in input)
                 {
-                    // download and deserialize
-                    result.Add(await client.GetPayloadAsync<DummyData>(uri, Serializer));
+                    var payload = await client.GetPayloadAsync<DummyData>(uri, Serializer);
+                    result.Add(payload);
                 }
             }
 

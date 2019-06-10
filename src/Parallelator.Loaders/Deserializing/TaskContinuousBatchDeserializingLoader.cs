@@ -52,7 +52,7 @@ namespace Parallelator.Loaders.Deserializing
                     }
                 }
 
-                // process rest of queue
+                // process rest of the queue
                 if (queue.Count > 0)
                 {
                     DummyData[] finishedTaskResults = await Task.WhenAll(queue);

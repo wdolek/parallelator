@@ -5,10 +5,12 @@ repository is __not production-ready__!
 
 In order to run benchmark:
 
-* Compile with `Release`
+* Check [`global.json`](./global.json) for SDK version
+* Build with `dotnet build -c Release`
 * Run `run-api.bat`
 * Run `run-benchmark.bat`
-* Wait...
+* ...?
+* Profit!
 
 Have fun!
 

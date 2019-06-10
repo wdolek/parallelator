@@ -83,13 +83,11 @@ namespace Parallelator.Loaders.Deserializing
                     await downloader.SendAsync(uri);
                 }
 
-                // input completed
+                // flag input completed
                 downloader.Complete();
 
-                // await deserializer
+                // await whole pipeline, get result
                 await deserializer.Completion;
-
-                // pipeline done, receive result
                 buffer.TryReceiveAll(out result);
             }
 

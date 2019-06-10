@@ -59,7 +59,6 @@ namespace Parallelator.Loaders.Deserializing
                         }
                     });
 
-                // await all download tasks
                 await Task.WhenAll(tasks);
 
                 // await deserialization

@@ -48,7 +48,6 @@ namespace Parallelator.Loaders.Deserializing
                         u => () => { bag.Add(client.GetPayloadAsync<DummyData>(u, Serializer).Result); })
                     .ToArray();
 
-                // invoke with options
                 Parallel.Invoke(
                     new ParallelOptions
                     {

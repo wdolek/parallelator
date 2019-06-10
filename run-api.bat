@@ -1,1 +1,1 @@
-dotnet src\Parallelator.DummyFeed\bin\Release\netcoreapp2.0\Parallelator.DummyFeed.dll
+dotnet src\Parallelator.DummyFeed\bin\Release\netcoreapp2.2\Parallelator.DummyFeed.dll

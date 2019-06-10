@@ -42,7 +42,6 @@ namespace Parallelator.Loaders.Deserializing
 
                     payloads.CompleteAdding();
                 });
-            
 
             // deserialize payloads (happens sequentially again, se we don't need concurrent collection)
             var result = new List<DummyData>();

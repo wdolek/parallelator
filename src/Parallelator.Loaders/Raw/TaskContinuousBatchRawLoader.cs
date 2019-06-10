@@ -31,7 +31,7 @@ namespace Parallelator.Loaders.Raw
                 {
                     bool hasNext = enumerator.MoveNext();
 
-                    // we have reached end, process rest of queue if not empty and break
+                    // we have reached the end, process rest of queue if not empty and break
                     if (!hasNext)
                     {
                         if (queue.Count > 0)

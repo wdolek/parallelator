@@ -14,10 +14,11 @@ namespace Parallelator.DummyFeed
             BuildWebHost(args).Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) => WebHost.CreateDefaultBuilder(args)
-            .UseKestrel(o => ConfigureKestrel(o, args))
-            .UseStartup<Startup>()
-            .Build();
+        public static IWebHost BuildWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(o => ConfigureKestrel(o, args))
+                .UseStartup<Startup>()
+                .Build();
 
         private static KestrelServerOptions ConfigureKestrel(KestrelServerOptions o, string[] args)
         {
@@ -33,7 +34,6 @@ namespace Parallelator.DummyFeed
                                    "true",
                                    StringComparison.OrdinalIgnoreCase);
 
-            // configure
             o.Listen(IPAddress.Any, Constants.FeedPort);
             if (!isBoundless)
             {

@@ -30,7 +30,6 @@ namespace Parallelator.Loaders.Raw
                 for (var i = 0; i < input.Length; i = i + _batchSize)
                 {
                     IEnumerable<Task<string>> tasks =
-                        // ReSharper disable once AccessToDisposedClosure
                         input.Skip(i)
                             .Take(_batchSize)
                             .Select(async u => await client.GetStringAsync(u));

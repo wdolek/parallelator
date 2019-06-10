@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,7 +17,9 @@ namespace Parallelator.DummyFeed
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services
+                .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -28,6 +31,7 @@ namespace Parallelator.DummyFeed
 
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
+
             app.UseMvc();
         }
     }

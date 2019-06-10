@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
@@ -16,6 +15,8 @@ namespace Parallelator.Benchmark.Benchmarks
     [Orderer(SummaryOrderPolicy.FastestToSlowest)]
     public class DeserializingLoaderBenchmarks
     {
+        private readonly Consumer _consumer = new Consumer();
+
         private Uri[] _uris;
 
         [Params(255)]
@@ -31,85 +32,85 @@ namespace Parallelator.Benchmark.Benchmarks
         }
 
         [Benchmark(Description = "Loading one by one")]
-        public async Task<IEnumerable<DummyData>> SequentialDeserializingAsync()
+        public async Task SequentialDeserializingAsync()
         {
             var downloader = new SequentialDeserializingLoader();
-            return await downloader.LoadAsync(_uris);
+            (await downloader.LoadAsync(_uris)).Consume(_consumer);
         }
 
         [Benchmark(Description = "Always keeping n tasks concurrently")]
-        public async Task<IEnumerable<DummyData>> TaskContinuousBatchDeserializingLoaderAsync()
+        public async Task TaskContinuousBatchDeserializingLoaderAsync()
         {
             var downloader = new TaskContinuousBatchDeserializingLoader(Constants.MaxConcurrency);
-            return await downloader.LoadAsync(_uris);
+            (await downloader.LoadAsync(_uris)).Consume(_consumer);
         }
 
         [Benchmark(Description = "Awaiting batches (groups) of tasks")]
-        public async Task<IEnumerable<DummyData>> TaskSeqBatchDeserializingLoaderAsync()
+        public async Task TaskSeqBatchDeserializingLoaderAsync()
         {
             var downloader = new TaskSeqBatchDeserializingLoader(Constants.MaxConcurrency);
-            return await downloader.LoadAsync(_uris);
+            (await downloader.LoadAsync(_uris)).Consume(_consumer);
         }
 
         [Benchmark(Description = "Producer-Consumer with semaphore")]
-        public async Task<IEnumerable<DummyData>> TaskEnumWithSemaphoreDeserializingLoaderLoaderAsync()
+        public async Task TaskEnumWithSemaphoreDeserializingLoaderLoaderAsync()
         {
             var downloader = new TaskEnumWithSemaphoreDeserializingLoader(Constants.MaxConcurrency);
-            return await downloader.LoadAsync(_uris);
+            (await downloader.LoadAsync(_uris)).Consume(_consumer);
         }
 
         [Benchmark(Description = "TPL Dataflow obtaining string")]
-        public async Task<IEnumerable<DummyData>> DataFlowDeserializingLoaderAsync()
+        public async Task DataFlowDeserializingLoaderAsync()
         {
             var downloader = new DataFlowDeserializingLoader(Constants.MaxConcurrency);
-            return await downloader.LoadAsync(_uris);
+            (await downloader.LoadAsync(_uris)).Consume(_consumer);
         }
 
         [Benchmark(Description = "TPL Dataflow obtaining stream")]
-        public async Task<IEnumerable<DummyData>> DataFlowStreamDeserializingLoaderAsync()
+        public async Task DataFlowStreamDeserializingLoaderAsync()
         {
             var downloader = new DataFlowStreamDeserializingLoader(Constants.MaxConcurrency);
-            return await downloader.LoadAsync(_uris);
+            (await downloader.LoadAsync(_uris)).Consume(_consumer);
         }
 
         [Benchmark(Description = "Parallel.Invoke with degree of parallelism")]
-        public async Task<IEnumerable<DummyData>> ParallelInvokeDeserializingLoaderAsync()
+        public async Task ParallelInvokeDeserializingLoaderAsync()
         {
             var downloader = new ParallelInvokeDeserializingLoader(Constants.MaxConcurrency);
-            return await downloader.LoadAsync(_uris);
+            (await downloader.LoadAsync(_uris)).Consume(_consumer);
         }
 
         [Benchmark(Description = "ForEachAsync with concurrent bag as storage")]
-        public async Task<IEnumerable<DummyData>> ParallelForEachDeserializingLoaderAsync()
+        public async Task ParallelForEachDeserializingLoaderAsync()
         {
             var downloader = new ParallelForEachDeserializingLoader(Constants.MaxConcurrency);
-            return await downloader.LoadAsync(_uris);
+            (await downloader.LoadAsync(_uris)).Consume(_consumer);
         }
 
         [Benchmark(Description = "Producer-Consumer 1:1, producer->task, consumer->await & deserializes")]
-        public async Task<IEnumerable<DummyData>> ProducerTaskConsumerAwaitsDeserializingLoaderAsync()
+        public async Task ProducerTaskConsumerAwaitsDeserializingLoaderAsync()
         {
             using (var downloader = new ProducerTaskConsumerAwaitsDeserializingLoader(Constants.MaxConcurrency))
             {
-                return await downloader.LoadAsync(_uris);
+                (await downloader.LoadAsync(_uris)).Consume(_consumer);
             }
         }
 
         [Benchmark(Description = "Producer-Consumer 1:1, producer->string, consumer->deserializes")]
-        public async Task<IEnumerable<DummyData>> Producer1Consumer1DeserializingLoaderAsync()
+        public async Task Producer1Consumer1DeserializingLoaderAsync()
         {
             using (var downloader = new Producer1Consumer1DeserializingLoader(Constants.MaxConcurrency))
             {
-                return await downloader.LoadAsync(_uris);
+                (await downloader.LoadAsync(_uris)).Consume(_consumer);
             }
         }
 
         //[Benchmark(Description = "Producer-Consumer with Threads")]
-        public async Task<IEnumerable<DummyData>> ProducerConsumerThreadsDeserializingLoaderAsync()
+        public async Task ProducerConsumerThreadsDeserializingLoaderAsync()
         {
             using (var downloader = new ProducerConsumerThreadsDeserializingLoader(Constants.MaxConcurrency))
             {
-                return await downloader.LoadAsync(_uris);
+                (await downloader.LoadAsync(_uris)).Consume(_consumer);
             }
         }
     }
